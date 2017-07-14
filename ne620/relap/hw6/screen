@@ -1,0 +1,29 @@
+
+ *******************************************************************************
+ *** THIS CODE IS THE RESULT OF WORK SPONSORED BY AN AGENCY OF THE UNITED    ***
+ *** STATES GOVERNMENT. NEITHER THE UNITED STATES GOVERNMENT NOR ANY AGENCY  ***
+ *** THEREOF, NOR ANY OF THEIR EMPLOYEES MAKES ANY WARRANTY, EXPRESSED OR    ***
+ *** IMPLIED, OR ASSUMES ANY LEGAL LIABILITY OR RESPONSIBILITY FOR ANY THIRD ***
+ *** PARTYS USE, OR THE RESULTS OF SUCH USE, OR OF ANY INFORMATION, PRODUCT, ***
+ *** OR PROCESS INCLUDED IN OR CALCULATED BY THIS CODE, OR REPRESENTS THAT   ***
+ *** THE USE BY SUCH THIRD PARTY WOULD NOT INFRINGE UPON PRIVATELY-OWNED     ***
+ *** RIGHTS. IN ADDITION, YOU MAY NOT DISTRIBUTE THIS COMPUTER CODE TO ANY-  ***
+ *** ONE OR USE THIS COMPUTER CODE WITHOUT PERMISSION FROM THE UNITED STATES ***
+ *** NUCLEAR REGULATORY COMMISSION.                                          ***
+ *******************************************************************************
+
+0======== Execute file name = relap5.x                                                                        
+            Input file name = TRIGAv.i                                                                                
+
+ Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3iy          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
+= RELAP TRIGA KSU                                                                 27-Apr-17    17:14:25      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.3  0.0000     1.00E-07  0.0     77701   0.1430     0.0000   0.00     77701    0.14   0.00    g  0.00    a       0         
+     10.3  351.53     2.60E-02 2.60E-02 77728G  0.1457     0.0793  7.592E-07 77701    0.14   0.00    g  0.00    a   10630  Courant
+0Transient has reached steady state.
+ At time     356.076     seconds; At step     10805; Cpu time     10.5000     seconds

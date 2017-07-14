@@ -1,0 +1,299 @@
+=edward's pipe problem base case with extras
+*m: SNAP:Symbolic Nuclear Analysis Package,  Version 2.4.2, December 11, 2015
+*m: PLUGIN:RELAP Version 4.5.8
+*m: CODE:RELAP5 Version 3.3
+*m: DATE:4/23/17
+******************************
+*        Model Options       *
+******************************
+*            type         state
+100           new       transnt
+*          iunits        ounits
+102            si            si
+*   tend minstep maxstep copt pfreq majed rsrtf
+201 0.02  1.0e-7  1.0e-3    3     2    10   100
+202  0.1  1.0e-7  1.0e-3    3    10    20   100
+203  0.5  1.0e-7  1.0e-3    3    10    50   100
+*        variable     parameter
+301             p     003010000
+302             p     003050000
+303             p     003100000
+304             p     003150000
+305             p     003200000
+306         voidg     003200000
+307         voidj     004000000
+308        mflowj     004000000
+*             Expanded plot records
+20800001        errmax             0
+20800002        systms             1
+**************************************
+*       Interactive Variables        *
+**************************************
+*
+*       name       initial         factor
+801        x           0.0           1.0
+*
+*       name       initial         factor
+802       xx           5.0           1.0
+*
+*       name       initial         factor
+805      xxx          10.0           1.0
+*
+20500000           999
+*******************************
+*       Control Blocks        *
+*******************************
+*
+*          name type scale ival iflag limit
+20500100 "ctl1"  sum   0.5  0.0     1     0
+*                   a0         scale     name         param
+20500101           0.0           1.0        p       3010000
+20500102                         1.0        p       3020000
+*
+*          name type scale ival iflag limit
+20500400 "ctl4" mult   0.5  0.0     1     0
+*                input         param
+20500401             p       3200000
+*
+*          name type scale ival iflag limit
+20500500 "ctl5" mult   1.0  0.0     1     0
+*         input   param input   param input   param
+20500501 voidgj 4000000 rhogj 4000000 velgj 4000000
+*
+*           name type scale ival iflag limit
+20501000 "ctl10"  div   1.0  0.0     1     0
+*                input         param
+20501001             p       3200000
+*
+*           name type scale ival iflag limit
+20501100 "ctl10"  div   1.0  0.0     1     0
+*                input         param         input         param
+20501101             p       3200000             p       3190000
+*
+*           name     type scale ival iflag limit
+20501200 "ctl12" diffreni   1.0  1.0     0     0
+*                input         param
+20501201          time             0
+*
+*           name     type scale ival iflag limit
+20501300 "ctl13" integral   1.0  0.0     0     0
+*                input         param
+20501301          time             0
+*
+*           name     type scale ival iflag limit
+20501400 "ctl14" integral   1.0  0.0     0     0
+*                input         param
+20501401      cntrlvar            12
+*
+*           name     type scale ival iflag limit
+20501500 "ctl15" diffreni   1.0  0.0     1     0
+*                input         param
+20501501      cntrlvar            13
+*
+*            name     type scale ival iflag limit
+20520100 "ctl201" function   2.0  0.0     1     0
+*                input         param         table
+20520101          time             0            10
+*
+*            name     type scale ival iflag limit
+20520200 "ctl202" stdfnctn   2.0  0.0     1     0
+*                fnctn         input         param
+20520201           sin          time             0
+*
+*            name     type scale ival iflag limit
+20520300 "ctl203" tripunit   2.0  0.0     1     0
+*                 trip
+20520301           501
+*
+*            name     type scale ival iflag limit
+20520400 "ctl204" tripdlay   2.0  0.0     1     0
+*                 trip
+20520401           501
+*
+*            name   type scale ival iflag limit min
+20520500 "ctl205" poweri   0.5  0.3     1     1 0.2
+*                input         param         power
+20520501          time             0             2
+*
+*            name   type scale ival iflag limit max
+20520600 "ctl206" powerr   0.5  0.2     1     2 0.3
+*                input         param         power
+20520601          time             0           2.0
+*
+*            name   type scale ival iflag limit min max
+20520700 "ctl207" powerx   0.5  0.2     1     3 0.1 0.3
+*                input         param         input         param
+20520701          time             0          time             0
+*
+*            name  type scale ival iflag limit
+20530000 "ctl300" delay   2.0  0.0     1     0
+*                input         param         delay          hold
+20530001      cntrlvar            13           0.1            10
+*
+*            name     type scale ival iflag limit
+20530100 "ctl301" prop-int  10.0  0.0     1     0
+*                   a1            a2         input         param
+20530101           2.0           3.0          time             0
+*
+*            name type scale ival iflag limit
+20530200 "ctl302"  lag  10.0  0.0     1     0
+*                  lag         input         param
+20530201           0.1          time             0
+*
+*            name     type scale ival iflag limit
+20530300 "ctl303" lead-lag  10.0  0.0     1     0
+*                 lead           lag         input         param
+20530301          0.05           0.1          time             0
+*
+*                 name          type         value
+20530400      "ctl304"      constant         0.387
+*
+*                 name          type         value
+20540100        "con1"      constant           0.0
+*
+*                 name          type         value
+20540200        "con2"      constant           0.1
+*
+*             name    type scale ival iflag limit
+20540300 "pumpctl" pumpctl   1.0  0.0     0     0
+*           input param input param scale integral proport
+20540301 cntrlvar   401  time     0   1.0      0.0     0.0
+*
+*              name     type scale ival iflag limit
+20540400 "steamctl" steamctl   5.0  2.0     0     0
+*           input param input param scale integral proport
+20540401 cntrlvar   402  time     0   2.0      0.0     0.0
+*
+*             name    type scale ival iflag limit
+20540500 "feedctl" feedctl   1.0  0.0     0     0
+*                 name         param          name         param         scale
+20540501      cntrlvar           401          time             0           0.4
+*                 name         param          name         param         scale
+20540502      cntrlvar           402          time             0           0.5
+*              integral    proportion
+20540503           0.0           0.0
+*
+*******************************
+*       Variable Trips        *
+*******************************
+*
+*    var param  r  var param     acon l
+501 time     0 gt null     0 0.099999 l
+*
+*   var   param  r var   param acon l
+502   p 3010000 lt   p 3020000  0.0 n
+*
+*     var   param  r   var   param acon l
+505 velfj 3010000 ge velgj 3010000  0.0 n
+*
+******************************
+*       Logical Trips        *
+******************************
+*
+*           trip1          oper         trip2             l
+601           505           and           501             l
+*
+*           trip1          oper         trip2             l
+602           602            or           601             n
+*
+*           trip1          oper         trip2             l
+603          -505           xor          -501             l
+*
+*******************************
+*       General Tables        *
+*******************************
+*
+*            type          trip
+20200400    htc-t             0
+*                 TimeHeat Transfer 
+20200401           0.0        2000.0
+*
+*            type          trip
+20201000   reac-t             0
+*                 Time    Reactivity
+20201001          -1.0           0.0
+20201002           0.0           0.0
+20201003           0.0           1.5
+*
+*            type          trip
+20201100   reac-t           501
+*                 Time    Reactivity
+20201101          -1.0           0.0
+20201102           0.0           0.0
+20201103           0.1         -20.0
+*
+*            type          trip
+20233300     temp             0
+*                 Time   Temperature
+20233301           0.0         333.6
+20233302        5000.0         333.0
+*
+**************************
+*       Materials        *
+**************************
+*
+*                 type
+20100100       c-steel
+*
+*                 type         tflag         vflag
+20100300      tbl/fctn             2             2
+*        lower  upper    a0      a1      a2      a3      a4      a5       c
+20100301   0.0    5.0 46.05 1.0e-20 1.0e-20 1.0e-20 1.0e-20 1.0e-20 1.0e-20
+20100302   5.0 2000.0 46.05 1.0e-20 1.0e-20 1.0e-20 1.0e-20 1.0e-20 1.0e-20
+*        lower  upper       a0      a1      a2      a3      a4      a5       c
+20100351   0.0 2000.0 3.8775e6 1.0e-20 1.0e-20 1.0e-20 1.0e-20 1.0e-20 1.0e-20
+*
+*                 type         tflag         vflag
+20100400      tbl/fctn             1            -1
+*                 temp        thcond
+20100401           0.0         46.05
+20100402        1000.0         46.05
+20100403        2000.0         46.05
+*        heat capacity
+20100451      3.8775e6
+20100452      3.8775e6
+20100453      3.8775e6
+*
+*                 type         tflag         vflag
+20100500      tbl/fctn             2             2
+*        lower  upper    a0  a1  a2  a3  a4  a5   c
+20100501   0.0    5.0 46.05 0.0 0.0 0.0 0.0 0.0 0.0
+20100502   5.0 2000.0 46.05 0.0 0.0 0.0 0.0 0.0 0.0
+*        lower  upper       a0  a1  a2  a3  a4  a5   c
+20100551   0.0 2000.0 3.8775e6 0.0 0.0 0.0 0.0 0.0 0.0
+*
+*                 type
+20100600           gap
+*
+*                 type
+20100700       s-steel
+*
+*                 type
+20100800           uo2
+*
+*                 type
+20100900            zr
+*
+*************************************
+*       Hydraulic Components        *
+*************************************
+*
+*                name          type
+0030000    "edward's"          pipe
+*              ncells
+0030001            20
+*              x-area         volid
+0030101    4.56037e-3            20
+*            x-length         volid
+0030301      0.204801            20
+*              volume         volid
+0030401           0.0            20
+*          azim-angle         volid
+0030501           0.0            20
+*          vert-angle         volid
+0030601           0.0            20
+*              x-wall           xhd         volid
+0030801   1.177911e-6           0.0            20
+*             x-flags         volid
+0031001             0            20
+*       ebt press  water-ie  steam-ie void none id

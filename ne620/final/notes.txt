@@ -1,0 +1,17 @@
+################################################################################
+#                                  PROBLEM 1
+################################################################################
+
+To Do:
+calc & check fuel axial distribution
+check minor edits coolant temps
+check minor edits cladding temps (outer node of ht structure)
+check minor edits axial velocity
+find coolant inlet temp in relap
+
+
+Complete:
+calc heated diameter & change
+calc flow area & change
+calc hydraulic diameter & change
+calc & check fuel power
