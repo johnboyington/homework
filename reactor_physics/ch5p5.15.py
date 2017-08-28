@@ -37,7 +37,7 @@ omega = np.linspace(-1000, 1000, 4000)
 A = (rho - beta) / gam
 B = (lam * beta) / (gam * (omega + lam))
 omega_new = A + B
-
+print(omega_new)
 
 plt.figure(0)
 plt.xlim(-10, 10)
