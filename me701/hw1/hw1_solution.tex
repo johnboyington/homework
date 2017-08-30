@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage{mathtools,hyperref,booktabs,fullpage, txfonts}
+\usepackage[amssymb,cdot]{SIunits}
+\usepackage[utopia]{mathdesign}     
+
+\usepackage[table]{xcolor}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{fullpage}
+ 
+\definecolor{lightgray}{gray}{0.93}
+
+\pagestyle{empty}
+\setlength\parindent{0pt}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+ 
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                  {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                  {2.3ex \@plus.2ex}%
+                                  {\normalfont\bfseries}}
+\makeatother
+
+
+\begin{document}
+
+{\large
+  \begin{center}
+    {\bf ME 701 -- Development of Computer Applications In Mechanical Engineering \\ 
+         Homework 1 -- Due 9/1/2017 \\
+         Submitted By: John Boyington
+    }
+  \end{center}
+}
+ 
+
+\section*{Problem 1 -- Open-Source Software}
+
+A life goal of mine has been to climb every 14er in Colorado. For Christmas one year, I received a GoPro and have been documenting my trips ever since. I don't think it'd be worth the dime to buy a fancy software package just to tie together video clips, so I've been using Windows Movie Maker; however, it's buggy and I've been looking for an alternative. The program OpenShot looks like it functions about the exact same, and is included in the software repository. It allows for animated titles and transitions as well as basic video editing.
+
+
+\section*{Problem 2 -- Command-Line Utilities}
+
+\begin{enumerate}
+\item Command: {\tt lscpu} \\
+
+	  Output:  {\tt Architecture:          x86\_64\\
+CPU op-mode(s):        32-bit, 64-bit\\
+Byte Order:            Little Endian\\
+\hl{CPU(s):            28}\\
+On-line CPU(s) list:   0-27\\
+Thread(s) per core:    1\\
+Core(s) per socket:    14\\
+Socket(s):             2\\
+NUMA node(s):          2\\
+Vendor ID:             GenuineIntel\\
+CPU family:            6\\
+Model:                 63\\
+Model name:            Intel(R) Xeon(R) CPU E5-2683 v3 @ 2.00GHz\\
+Stepping:              2\\
+\hl{CPU MHz:               1204.921}\\
+CPU max MHz:           3000.0000\\
+CPU min MHz:           1200.0000\\
+BogoMIPS:              4001.26\\
+Virtualization:        VT-x\\
+L1d cache:             32K\\
+L1i cache:             32K\\
+L2 cache:              256K\\
+L3 cache:              35840K\\
+NUMA node0 CPU(s):     0-13\\
+NUMA node1 CPU(s):     14-27\\
+Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant\_tsc arch\_perfmon pebs bts rep\_good nopl xtopology nonstop\_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds\_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4\_1 sse4\_2 x2apic movbe popcnt tsc\_deadline\_timer aes xsave avx f16c rdrand lahf\_lm abm epb tpr\_shadow vnmi flexpriority ept vpid fsgsbase tsc\_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm\_llc cqm\_occup\_llc dtherm ida arat pln pts\\
+
+}
+\item Command:  {\tt ps aux --sort -pcpu} \hspace{1cm} Lists the programs using the most processing. \\
+Output:  \\
+{\tt USER       PID \%CPU \%MEM    VSZ   RSS TTY      STAT START   TIME COMMAND\\
+john      4449  9.1  0.6 2247320 224256 ?      Sl   10:13   0:26 /usr/lib/firefo\\
+john      3403  8.7  1.3 2450612 480868 ?      Sl   09:55   1:57 /usr/lib/firefo\\
+john      3478  7.6  1.1 2399640 397204 ?      Sl   09:55   1:41 /usr/lib/firefo\\
+john      3697  5.1  1.2 8672380 424076 ?      Sl   09:56   1:06 /usr/lib/firefo\\
+john      4707  3.1  0.1 492708 36844 ?        Sl   10:17   0:00 /usr/lib/gnome-\\
+root      1689  2.6  0.4 443668 144440 tty8    Ss+  09:47   0:48 /usr/lib/xorg/X\\
+john      3615  2.5  0.6 2188668 232312 ?      Sl   09:55   0:34 /usr/lib/firefo\\
+john      2572  1.9  0.7 1676332 247928 ?      Rl   09:49   0:34 cinnamon --repl\\
+john      2754  1.8  0.6 1385092 217372 ?      Sl   09:49   0:31 /usr/lib/slack/} \\
+(Showing first 10 lines)
+
+Command:  {\tt ps aux --sort -pmem} \hspace{1cm} Lists the programs using the most memory. \\ 
+Output:\\
+{\tt USER       PID \%CPU \%MEM    VSZ   RSS TTY      STAT START   TIME COMMAND\\
+john      3403  8.2  1.4 2449120 499104 ?      Sl   09:55   2:10 /usr/lib/firefox/firefox\\
+john      3697  7.0  1.1 8696860 395344 ?      Sl   09:56   1:48 /usr/lib/firefox/firefox -contentproc -childID 3 -isForBrowser -intPrefs 5:50|6:-1|18:0|28:1000|33:20|34:10|43:128|44:10000|49:0|51:400|52:1|53\\
+john      3478  6.5  1.0 2399824 382404 ?      Sl   09:55   1:44 /usr/lib/firefox/firefox -contentproc -childID 1 -isForBrowser -intPrefs 5:50|6:-1|18:0|28:1000|33:20|34:10|43:128|44:10000|49:0|51:400|52:1|53\\
+john      2572  1.9  0.7 1676332 249632 ?      Sl   09:49   0:38 cinnamon --replace\\
+john      3615  2.4  0.6 2185596 235956 ?      Sl   09:55   0:38 /usr/lib/firefox/firefox -contentproc -childID 2 -isForBrowser -intPrefs 5:50|6:-1|18:0|28:1000|33:20|34:10|43:128|44:10000|49:0|51:400|52:1|53\\
+john      2623  0.8  0.6 5115968 222312 ?      Ssl  09:49   0:15 /home/john/.dropbox-dist/dropbox-lnx.x86\\\_64-33.4.23/dropbox\\
+john      2754  1.6  0.6 1376896 217472 ?      Sl   09:49   0:31 /usr/lib/slack/slack --type=renderer --disable-pinch --no-sandbox --primordial-pipe-token=D31B61B9F3AFB5046E42CCE69CC74BDD --lang=en-US --stand\\
+john      4449  5.0  0.6 2247320 217080 ?      Sl   10:13   0:27 /usr/lib/firefox/firefox -contentproc -childID 5 -isForBrowser -intPrefs 5:50|6:-1|18:0|28:1000|33:20|34:10|43:128|44:10000|49:0|51:400|52:1|53\\
+john      2752  0.5  0.6 1366656 213728 ?      Sl   09:49   0:10 /usr/lib/slack/slack --type=renderer --disable-pinch --no-sandbox --primordial-pipe-token=EE41881716F54A0A6F0A622B8E5A234D --lang=en-US --stand\\
+}\\
+(Showing first 10 lines)
+\end{enumerate}
+
+ 
+
+\end{document}
