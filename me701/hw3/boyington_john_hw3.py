@@ -3,6 +3,7 @@
 #                            john boyington
 ###############################################################################
 # import statements
+import numpy as np
 
 ###############################################################################
 #                               problem 1
@@ -76,12 +77,25 @@ print(len(points) == 3 * 4 * 2)
 
 def decimal_to_binary(x, n):
     strX = str(x)
-    left, right = strX[:strX.index('.')], strX[strX.index('.') + 1:]
-    return left, right
+    left, right = strX[:strX.index('.')], strX[strX.index('.'):]
+    
+    # for the left side
+    
+    # for the right side of the decimal
+    rightBin = np.zeros(n)
+    for i in range(n):
+        rightBin[i] = 1
+        summed = np.array([e* (2**(-(ind+1))) for ind, e in enumerate(rightBin)]).sum()
+        if summed > float(right):
+            rightBin[i] = 0
+    rightBinString = ''
+    for e in rightBin.astype(int):
+        rightBinString += '{}'.format(e)
+    return left, right, '.'+rightBinString
 
 
 
-print(decimal_to_binary(12345.85643, 10))
+print(decimal_to_binary(12345.52345, 10))
 
 
 
