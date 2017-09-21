@@ -80,6 +80,26 @@ def decimal_to_binary(x, n):
     left, right = strX[:strX.index('.')], strX[strX.index('.'):]
     
     # for the left side
+    leftLength = len(left)
+    leftTotal = 0
+    leftBin = np.ones(leftLength)
+    while leftTotal < int(left):
+        leftTotal = np.array([e* (2**((ind+1))) for ind, e in enumerate(leftBin[::-1])]).sum()
+        leftBin = np.concatenate((np.array([1]), leftBin))
+        print(len(leftBin))
+    finalLen = len(leftBin)
+    leftBin = np.zeros(finalLen)
+    
+    for i in range(finalLen):
+        leftBin[i] = 1
+        summed = np.array([e* (2**((ind+1))) for ind, e in enumerate(leftBin)]).sum()
+        if summed > float(left):
+            leftBin[i] = 0
+    leftBinString = ''
+    for e in leftBin.astype(int):
+        leftBinString += '{}'.format(e)
+    
+    
     
     # for the right side of the decimal
     rightBin = np.zeros(n)
@@ -91,7 +111,7 @@ def decimal_to_binary(x, n):
     rightBinString = ''
     for e in rightBin.astype(int):
         rightBinString += '{}'.format(e)
-    return left, right, '.'+rightBinString
+    return left, right, leftBinString + '.'+rightBinString
 
 
 
