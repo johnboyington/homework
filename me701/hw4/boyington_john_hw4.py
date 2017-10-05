@@ -230,7 +230,7 @@ for i in range(len(times)-1):
 
 plt.figure(4)
 plt.plot(times, sol4, label='Using odeint')
-plt.plot(times, myY, label="Forwards Euler")
+plt.plot(times, myY, label="Forward Euler")
 plt.plot(times, myY2, label="Backwards Euler (root 1)")
 plt.plot(times, myY2, label="Backwards Euler (root 2)")
 plt.title('Equation 4')
@@ -240,7 +240,7 @@ plt.yscale('log')
 plt.xlim(0, 10)
 plt.ylim(10**0, 10**5)
 plt.legend()
-plt.savefig('me701_hw4_p4_4.png')
+#plt.savefig('me701_hw4_p4_4.png')
 plt.show()
 plt.close()
 
