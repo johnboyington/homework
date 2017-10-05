@@ -1,3 +1,4 @@
+
 ###############################################################################
 #                                Homework 4
 ###############################################################################
@@ -195,7 +196,7 @@ plt.close()
 # 4
 def rhs4(y, t):
     return y**2 + 1
-times = np.linspace(0, 10, 100000)
+times = np.linspace(0, 10, 300)
 sol4 = odeint(rhs1, [1], times)
 
 myY = [1]
@@ -206,9 +207,32 @@ for i in range(len(times)-1):
     myY.append(step)
 
 
+myY2 = [1]
+myY3 = [1]
+delT = times[1] - times[0]
+
+a = delT
+b = -1
+
+for i in range(len(times)-1):
+    c = -(myY2[i] + delT)
+    root0 = (-b + np.sqrt(b**2 - (4 * a * c))) / (2 * a)
+    root1 = (-b - np.sqrt(b**2 - (4 * a * c))) / (2 * a)
+    myY2.append(root0)
+    
+    c = -(myY3[i] + delT)
+    root0 = (-b + np.sqrt(b**2 - (4 * a * c))) / (2 * a)
+    root1 = (-b - np.sqrt(b**2 - (4 * a * c))) / (2 * a)
+    myY3.append(root1)
+
+
+
+
 plt.figure(4)
 plt.plot(times, sol4, label='Using odeint')
-plt.plot(times, myY, label="Euler's Method")
+plt.plot(times, myY, label="Forwards Euler")
+plt.plot(times, myY2, label="Backwards Euler (root 1)")
+plt.plot(times, myY2, label="Backwards Euler (root 2)")
 plt.title('Equation 4')
 plt.xlabel('t')
 plt.ylabel('y(t)')
@@ -216,6 +240,7 @@ plt.yscale('log')
 plt.xlim(0, 10)
 plt.ylim(10**0, 10**5)
 plt.legend()
+plt.savefig('me701_hw4_p4_4.png')
 plt.show()
 plt.close()
 
