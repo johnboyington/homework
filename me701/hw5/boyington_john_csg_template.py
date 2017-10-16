@@ -98,17 +98,17 @@ class Surface(object):
 class QuadraticSurface(Surface):
 
     def __init__(self, A=0.0, B=0.0, C=0.0, D=0.0, E=0.0, F=0.0):
+        self.A, self.B, self.C, self.D, self.E, self.F = A, B, C, D, E, F
         self.M = np.array([[2 * A, C, D],
                            [C, 2 * B, E],
                            [D, E, 2 * F]])
 
     def intersections(self, r):
-        d = np.array([r.direction.x, r.direction.y, 1]).T
+        d = np.array([r.direction.x, r.direction.y, 0]).T
         ro = np.array([r.origin.x, r.origin.y, 1]).T
         a = np.inner(d.T, np.inner(self.M, d))
         b = 2 * np.inner(ro.T, np.inner(self.M, d))
         c = np.inner(ro.T, np.inner(self.M, ro))
-        print(a, b, c)
         if a != 0:
             coeffs = (a, b, c)
         else:
@@ -119,8 +119,6 @@ class QuadraticSurface(Surface):
             if not isinstance(root, complex):
                 xy = ro + (d * root)
                 ints.append(Point(xy[0], xy[1]))
-        for i in ints:
-            print(i.x, i.y)
         return ints
 
     def f(self, p):
@@ -130,14 +128,14 @@ class QuadraticSurface(Surface):
 
 class PlaneV(QuadraticSurface):
 
-    def __init__(self):
-        pass
+    def __init__(self, a):
+        QuadraticSurface.__init__(self, D=1, F=-a)
 
 
 class PlaneH(QuadraticSurface):
 
-    def __init__(self):
-        pass
+    def __init__(self, b):
+        QuadraticSurface.__init__(self, E=1, F=-b)
 
 
 class Plane(QuadraticSurface):
@@ -193,3 +191,7 @@ class Geometry(object) :
     def plot(self, nx, ny) :
         pass
         
+
+if __name__ == '__main__':
+    pass
+    

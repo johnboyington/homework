@@ -72,7 +72,7 @@ class TestCSG(unittest.TestCase) :
         self.assertAlmostEqual(ints[0].y, (np.sqrt(8)-2)*np.sin(np.pi/4))     
         self.assertAlmostEqual(ints[1].x, (np.sqrt(8)+2)*np.sin(np.pi/4))
         self.assertAlmostEqual(ints[1].y, (np.sqrt(8)+2)*np.sin(np.pi/4))
-    '''  
+      
     def testPlaneV(self) :
         v = PlaneV(3)
         self.assertEqual(v.D, 1)
@@ -96,7 +96,7 @@ class TestCSG(unittest.TestCase) :
         self.assertEqual(c.D, -2)
         self.assertEqual(c.E, -2)
         self.assertEqual(c.F, 1)
-    '''
+    
 
     #-------------------------------------------------------------------------#
     # TESTS OF NODE CLASSES
