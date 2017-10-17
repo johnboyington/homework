@@ -162,48 +162,70 @@ class Circle(QuadraticSurface):
         QuadraticSurface.__init__(self, A=1, B=1, D=-2*a, E=-2*b, F=(a**2 + b**2 - r**2))
 
 
-class Region(object) :
-    
-    def __init__(self) :
+class Region(object):
+
+    def __init__(self):
         self.node = None
-    
-    def append(self, node=None, surface=None, operation="U", sense=False) :
+
+    def append(self, node=None, surface=None, operation="U", sense=False):
+        '''
+        Assert statement requires that either a surface or node was given, but
+        not both.
+        Then, if the surface given is in fact a Surface object, a Primitive
+        object is created from that surface using the given sense (default is
+        false).
+        Then, if nothing has been appended to the region yet, the node, given
+        or created, is stored by the class.
+        If something has been appended to the class, instead the node is added
+        to the region through either a union or intersection relationship
+        (default is union).
+        '''
         assert((node and not surface) or (surface and not node))
-        if isinstance(surface, Surface) :
+        if isinstance(surface, Surface):
             node = Primitive(surface, sense)
-        if self.node is None :
+        if self.node is None:
             self.node = node
-        else :
+        else:
             O = Union if operation == "U" else Intersection
             self.node = O(self.node, node)
-          
-    def intersections(self, r) :
-        pass
-        
-class Geometry(object) :
-    
+
+    def contains(self, p):
+        return self.node.contains(p)
+
+    def intersections(self, r):
+        ints = self.node.intersections(r)
+        ints = sorted(ints, key=lambda i: i.x)
+        sliceLoc = 0
+        for i, j in enumerate(ints):
+            if j.x - r.origin.x < 0:
+                sliceLoc = i
+        ints = ints[sliceLoc:]
+        return ints
+
+
+class Geometry(object):
+
     # Attributes can be defined in the body of a class.  However, these
     # become "static" values that are the same for every object of the class.
-    # Hence, they can be accessed either through object.attribute or 
+    # Hence, they can be accessed either through object.attribute or
     # classname.attribute.
-    noregion = -1    
-    
-    def __init__(self,  xmin, xmax, ymin, ymax) :
+    noregion = -1
+
+    def __init__(self,  xmin, xmax, ymin, ymax):
         self.xmin, self.xmax, self.ymin, self.ymax = xmin, xmax, ymin, ymax
         self.regions = []
-        
-    def add_region(self, r) :
+
+    def add_region(self, r):
         self.regions.append(r)
 
-    def find_region(self, p) :
+    def find_region(self, p):
         region = Geometry.noregion
         # look for the region containing p.
         return region
-        
-    def plot(self, nx, ny) :
+
+    def plot(self, nx, ny):
         pass
-        
+
 
 if __name__ == '__main__':
     pass
-    

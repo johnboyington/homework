@@ -164,7 +164,7 @@ class TestCSG(unittest.TestCase) :
         reference_ints = [Point(i, 0) for i in (-2,-1, 1, 2)]        
         for i in range(4) :
             self.assertAlmostEqual(ints[i].x, reference_ints[i].x)
-    '''    
+        
     #-------------------------------------------------------------------------#
     # TESTS OF REGION CLASS
     #-------------------------------------------------------------------------#
@@ -198,17 +198,19 @@ class TestCSG(unittest.TestCase) :
   
         region = self.get_region_2()
         print(region.node.contains(Point(0.5, 0.5)))
-
+    
     def testRegion_intersections(self) :
         
         region = self.get_region()
         ray = Ray(Point(-3, 0), Point(1, 0))        
         ints = region.intersections(ray)
+        for i in ints:
+            print(i)
         self.assertAlmostEqual(ints[0].x, -2)
         self.assertAlmostEqual(ints[1].x, -1)
         self.assertAlmostEqual(ints[2].x,  1)
         self.assertAlmostEqual(ints[3].x,  2)
-     '''   
+        
 if __name__ == '__main__' :
     unittest.main()    
     
