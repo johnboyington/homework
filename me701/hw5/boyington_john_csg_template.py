@@ -198,7 +198,7 @@ class Region(object):
         sliceLoc = 0
         for i, j in enumerate(ints):
             if j.x - r.origin.x < 0:
-                sliceLoc = i
+                sliceLoc = i + 1
         ints = ints[sliceLoc:]
         return ints
 
@@ -220,7 +220,9 @@ class Geometry(object):
 
     def find_region(self, p):
         region = Geometry.noregion
-        # look for the region containing p.
+        for i, r in enumerate(self.regions):
+            if r.contains(p):
+                region = i
         return region
 
     def plot(self, nx, ny):
