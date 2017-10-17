@@ -39,7 +39,6 @@ class TestCSG(unittest.TestCase) :
     # TESTS OF SURFACE CLASSES
     #-------------------------------------------------------------------------#
     
-    
     def testQuadraticSurface_f_plane(self) :
         
         # vertical plane at x = 3
@@ -49,8 +48,7 @@ class TestCSG(unittest.TestCase) :
         # create a circle of radius 2 centered at (2, 2)      
         c = QuadraticSurface(A=1, B=1, D=-4, E=-4, F=4)
         self.assertAlmostEqual(c.f(Point(0, 2)), 0.0)
-    
-    
+
     def testQuadraticSurface_intersections(self) :
         
         # ray starting at origin and with a direction of 45 degrees
@@ -72,7 +70,7 @@ class TestCSG(unittest.TestCase) :
         self.assertAlmostEqual(ints[0].y, (np.sqrt(8)-2)*np.sin(np.pi/4))     
         self.assertAlmostEqual(ints[1].x, (np.sqrt(8)+2)*np.sin(np.pi/4))
         self.assertAlmostEqual(ints[1].y, (np.sqrt(8)+2)*np.sin(np.pi/4))
-      
+        
     def testPlaneV(self) :
         v = PlaneV(3)
         self.assertEqual(v.D, 1)
@@ -96,13 +94,11 @@ class TestCSG(unittest.TestCase) :
         self.assertEqual(c.D, -2)
         self.assertEqual(c.E, -2)
         self.assertEqual(c.F, 1)
-    
 
     #-------------------------------------------------------------------------#
     # TESTS OF NODE CLASSES
     #-------------------------------------------------------------------------#
-    '''
-      
+    '''  
     def testPrimitive(self) :
 
         # unit circle centered at origin        
@@ -129,7 +125,7 @@ class TestCSG(unittest.TestCase) :
     def testUnion_surface(self) :
         c0, c1 = self.get_circles()
         self.assertTrue(c0.f(Point(1.5, 0)) > 0.0)
-        self.assertTrue(c1.f(Point(1.5, 0)) > 0.0)
+        self.assertFalse(c1.f(Point(1.5, 0)) > 0.0)
         
     def testUnion_contains(self) :
         c0, c1 = self.get_circles()
@@ -168,12 +164,10 @@ class TestCSG(unittest.TestCase) :
         reference_ints = [Point(i, 0) for i in (-2,-1, 1, 2)]        
         for i in range(4) :
             self.assertAlmostEqual(ints[i].x, reference_ints[i].x)
-    '''
         
     #-------------------------------------------------------------------------#
     # TESTS OF REGION CLASS
     #-------------------------------------------------------------------------#
-    '''
       
     def get_region(self) :
         c0, c1 = self.get_circles()
@@ -203,7 +197,7 @@ class TestCSG(unittest.TestCase) :
         self.assertTrue(region.node.contains(Point(1.5, 0)))
   
         region = self.get_region_2()
-        print region.node.contains(Point(0.5, 0.5))
+        print(region.node.contains(Point(0.5, 0.5)))
 
     def testRegion_intersections(self) :
         
@@ -214,8 +208,7 @@ class TestCSG(unittest.TestCase) :
         self.assertAlmostEqual(ints[1].x, -1)
         self.assertAlmostEqual(ints[2].x,  1)
         self.assertAlmostEqual(ints[3].x,  2)
-    '''
-        
+     '''   
 if __name__ == '__main__' :
     unittest.main()    
     

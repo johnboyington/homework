@@ -140,14 +140,14 @@ class PlaneH(QuadraticSurface):
 
 class Plane(QuadraticSurface):
 
-    def __init__(self):
-        pass
+    def __init__(self, m, b):
+        QuadraticSurface.__init__(self, D=-m, E=1, F=-b)
 
 
 class Circle(QuadraticSurface):
 
-    def __init__(self):
-        pass
+    def __init__(self, r, a, b):
+        QuadraticSurface.__init__(self, A=1, B=1, D=-2*a, E=-2*b, F=(a**2 + b**2 - r**2))
 
 
 class Region(object) :
