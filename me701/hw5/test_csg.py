@@ -98,7 +98,7 @@ class TestCSG(unittest.TestCase) :
     #-------------------------------------------------------------------------#
     # TESTS OF NODE CLASSES
     #-------------------------------------------------------------------------#
-    '''  
+      
     def testPrimitive(self) :
 
         # unit circle centered at origin        
@@ -135,7 +135,7 @@ class TestCSG(unittest.TestCase) :
         self.assertTrue(u.contains(Point(0, 0)))
         self.assertTrue(u.contains(Point(2, 0)))
         self.assertFalse(u.contains(Point(1.5, 0)))
-
+    
     def testIntersection_contains(self) :
         
         c0, c1 = self.get_circles()
@@ -145,7 +145,7 @@ class TestCSG(unittest.TestCase) :
         self.assertFalse(i.contains(Point(0, 0)))
         self.assertFalse(i.contains(Point(2, 0)))
         self.assertTrue(i.contains(Point(1.5, 0)))
-
+    
     def testIntersection_intersections(self) :
         
         c0, c1 = self.get_circles()
@@ -164,7 +164,7 @@ class TestCSG(unittest.TestCase) :
         reference_ints = [Point(i, 0) for i in (-2,-1, 1, 2)]        
         for i in range(4) :
             self.assertAlmostEqual(ints[i].x, reference_ints[i].x)
-        
+    '''    
     #-------------------------------------------------------------------------#
     # TESTS OF REGION CLASS
     #-------------------------------------------------------------------------#

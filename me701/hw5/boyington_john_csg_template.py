@@ -46,44 +46,56 @@ class Node:
         """Where does the node intersect the ray?"""
         raise NotImplementedError
 
+
 class Primitive:
-    
-    def __init__(self, surface, sense) :
+
+    def __init__(self, surface, sense):
         self.surface, self.sense = surface, sense
-        
-    def contains(self, p) :
+
+    def contains(self, p):
         return (self.surface.f(p) < 0) == self.sense
-        
-    def intersections(self, r) :
+
+    def intersections(self, r):
         return self.surface.intersections(r)
-        
+
 
 class Operator:
-    
-    def __init__(self, L, R) :
+
+    def __init__(self, L, R):
         self.L, self.R = L, R
         # some super checking algorithm
 
-    def contains(self, p) :
+    def contains(self, p):
         raise NotImplementedError
 
-    def intersections(self, r) :
+    def intersections(self, r):
         # get intersections with left and right nodes
         pointsL = self.L.intersections(r)
         pointsR = self.R.intersections(r)
         # return the concatenated result
         return pointsL + pointsR
-      
-# INSERT UNION AND INTERSECTION CLASSES
-class Union:
-    
-    def __init__(self, L, R) :
+
+
+class Union(Operator):
+
+    def __init__(self, L, R):
         super(Union, self).__init__(L, R)
-        
-    def contains(self, p) :
+
+    def contains(self, p):
         inL = self.L.contains(p)
         inR = self.R.contains(p)
         return inL or inR
+
+
+class Intersection(Operator):
+
+    def __init__(self, L, R):
+        super(Intersection, self).__init__(L, R)
+
+    def contains(self, p):
+        inL = self.L.contains(p)
+        inR = self.R.contains(p)
+        return inL and inR
 
 
 class Surface(object):
@@ -146,7 +158,7 @@ class Plane(QuadraticSurface):
 
 class Circle(QuadraticSurface):
 
-    def __init__(self, r, a, b):
+    def __init__(self, r, a=0, b=0):
         QuadraticSurface.__init__(self, A=1, B=1, D=-2*a, E=-2*b, F=(a**2 + b**2 - r**2))
 
 
