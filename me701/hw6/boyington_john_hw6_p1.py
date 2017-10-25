@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sp
+from matplotlib import rcParams
+rcParams['xtick.direction'] = 'in'
+rcParams['ytick.direction'] = 'in'
 
 plt.ioff()
 exp = np.exp 
@@ -26,7 +29,7 @@ def RR(rho_e):
     return 100 - R(rho_e, 100)
     
     
-n = 100
+n = 1000
 H = np.logspace(-2, 2, n)
 E = np.logspace(-2, 2, n)
 
@@ -37,19 +40,25 @@ res = R(E, H)
 # my code starts here
 peaks = np.array([0.1, 0.2, 0.5, 1, 2, 5, 10, 15, 20, 30, 40])
 
-plt.figure(1, figsize=(8, 8))
-plt.contour(np.log10(E), np.log10(H), res, colors='k', levels=peaks)
-
+fig = plt.figure(1, figsize=(8, 8))
+ax = fig.add_subplot(1, 1, 1)
+ax.contour(E, H, res, colors='k', levels=peaks)
+#ax.Axes.tick_params(direction='in')
+#plt.rc('xtick', direction='in')
+#plt.rc('ytick', direction='')
 
 plt.xlabel('Electron Extraction Factor')
 plt.ylabel('Hole Extraction Factor')
 
+plt.xscale('log')
+plt.yscale('log')
 
-plt.xticks((-1, 0, 1, 2), (0.1, 1, 10, 100))
-plt.xlim(-1, 2)
 
-plt.yticks((-1, 0, 1, 2), (0.1, 1, 10, 100))
-plt.ylim(-1, 2)
+#plt.xticks((-1, 0, 1, 2), (0.1, 1, 10, 100))
+plt.xlim(0.1, 100)
+
+#plt.yticks((-1, 0, 1, 2), (0.1, 1, 10, 100))
+plt.ylim(0.1, 100)
 
 
 for p in peaks:

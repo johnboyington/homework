@@ -35,16 +35,16 @@ def live_animation():
     # set up live
     plt.ion()
     plt.show()
-    alphas = np.linspace(0, 1, 100)
+    alphas = np.linspace(0, 1, 200)
     for a in alphas:
         plt.figure(1)
         plt.clf()
         T, x = getTemp(a)
         plt.plot(x, T)
-        plt.title('alpha = {}'.format(a))
+        plt.title('alpha = {:4.3f}'.format(a))
         plt.axis([0, 1, 0, 1])
         plt.draw()
-        plt.pause(0.02)
+        plt.pause(0.001)
    
 
 live_animation()
