@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QLineEdit, QDialog, 
                              QVBoxLayout, QAction, QMessageBox, QFileDialog,
-                             QSizePolicy)
+                             QSizePolicy, QComboBox)
 from PyQt5.QtCore import QT_VERSION_STR, PYQT_VERSION_STR
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 from matplotlib.figure import Figure
-from numpy import sin, cos, tan
+from numpy import sin, cos, tan, exp
 import numpy as np
 import platform
 
@@ -18,7 +18,6 @@ class MainWindow(QMainWindow):
         # Create the File menu
         self.menuFile = self.menuBar().addMenu("&File")
         self.actionSaveAs = QAction("&Save As", self)
-        self.actionSaveAs.triggered.connect(self.saveas)
         self.actionQuit = QAction("&Quit", self)
         self.actionQuit.triggered.connect(self.close)
         self.menuFile.addActions([self.actionSaveAs, self.actionQuit])
@@ -35,8 +34,12 @@ class MainWindow(QMainWindow):
         # Setup main widget
         widget = QDialog()
         
-        self.edit1 = QLineEdit("sin(x)")
-        self.edit2 = QLineEdit("np.linspace(1,4,10)")
+        self.edit1 = QComboBox(self)
+        self.edit1.addItem ('sin(x)')
+        self.edit1.addItem ('x**5')
+        self.edit1.addItem ('exp(-x)')
+        self.edit1.addItem ('custom')
+        self.edit2 = QLineEdit("np.linspace(-5,5,100)")
         self.edit3 = QLineEdit("output")
         layout = QVBoxLayout()
         layout.addWidget(self.plot)
@@ -45,16 +48,28 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.edit3)
         widget.setLayout(layout)
         
-        self.edit1.returnPressed.connect(self.evaluate_function)
+        self.x = np.arange(0.0, 3.0, 0.01)
+        self.y = np.sin(2*np.pi*self.x)
+        
         self.edit2.returnPressed.connect(self.evaluate_function)
         self.edit3.returnPressed.connect(self.evaluate_function)
+        self.edit1.currentIndexChanged.connect(self.make_editable)
+        self.actionSaveAs.triggered.connect(self.save_data)
         
         self.setCentralWidget(widget)
+        
+    
+    def make_editable(self):
+        if self.edit1.currentIndex() == 3: 
+            self.edit1.setEditable(True)
+        else:
+            self.edit1.setEditable(False)
     
     def evaluate_function(self):
-        fun = self.edit1.text()
+        fun = self.edit1.currentText()
         s = self.edit2.text()
         x_values = eval(str(s))
+        print(type(x_values))
         if isinstance(x_values, tuple):
             y = []
             for x in x_values:
@@ -63,16 +78,30 @@ class MainWindow(QMainWindow):
         else:
             x = x_values
             y = eval(fun)
+        print(x, y)
         self.edit3.setText(str(y))
-        self.plot.redraw(x, y)
+        self.plot.redraw(x_values, y)
+        self.x, self.y = x_values, y
+        # self.save_data(x, y)
     
     def update_plot(self):
         s = str(self.edit1.text())
         self.plot.redraw(s)
         
         
-    def saveas(self) :
-        pass
+    def save_data(self):
+        x, y = self.x, self.y
+        s = 'x values:\n'
+        for val in x:
+            s += str(val) + ' '
+        
+        s += '\n f(x) values:\n'
+        for val in y:
+            s += str(val) + ' '
+        
+        with open('data.txt', 'w+') as f:
+            f.write(s)
+            
                 
     def about(self) :
         QMessageBox.about(self, 
