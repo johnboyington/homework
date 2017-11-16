@@ -51,7 +51,7 @@ double interpolate(double x_new, double *x, double *y, int n, int order)
                 p *= ((x_new - x[ind[j]]) / (x[ind[i]] - x[ind[j]]))
             }
         }
-        s += (p * y[i])
+        s += (p * y[ind[i]])
         p = 1
     }
     return s
