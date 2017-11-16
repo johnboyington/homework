@@ -1,8 +1,7 @@
 #include <cmath>
 #include <math.h>
-#include "interpolate.hh"
 
-// double interpolate(double x_new, double *x, double *y, int n, int order);
+double interpolate(double x_new, double *x, double *y, int n, int order);
 
 double interpolate(double x_new, double *x, double *y, int n, int order)
 {

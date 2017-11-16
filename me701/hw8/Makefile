@@ -1,10 +1,10 @@
-SWIG_INCLUDES=-I/home/john/opt/miniconda3/include/python3.6m -I/home/john/opt/miniconda3/lib/python3.6/site-packages/numpy/core/include
+SWIG_INCLUDES=-I/home/john/opt/miniconda3/include/python3.6m
 
 
 swig:
 	swig -python -c++ interpolate.i
 	g++ -fPIC -c interpolate.cc interpolate_wrap.cxx ${SWIG_INCLUDES}
-	g++ -shared interpolate.o interpolate_wrap.o ${SWIG_INCLUDES} -o interpolate.so
+	g++ -shared interpolate.o interpolate_wrap.o ${SWIG_INCLUDES} -o _interpolate.so
 
 
 # Remove objects, module files, and exectables

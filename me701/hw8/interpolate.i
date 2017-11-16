@@ -22,9 +22,12 @@
 
 // This is what we want for input arrays that should not get changed
 %apply (double* INPLACE_ARRAY1, int DIM1) {(double* a, int n)}
+//%apply int INPUT {int x_new, int n, int order};
+//%apply (double* INPLACE_ARRAY1, double* INPLACE_ARRAY2) {(double* x, double* y)}
+//%apply (double DIM1, double *INPLACE_ARRAY1, double *INPLACE_ARRAY1, int DIM1, int DIM1) {(double x_new, double* x, double* y, int n, int order)}
 
 // This is what we want for an array produced by the function.
-%apply (int* ARGOUT_ARRAY1, int DIM1) {(int* a, int n)}
+// %apply (int* ARGOUT_ARRAY1, int DIM1) {(int* a, int n)}
 
 // This is what we want when we need the raw data already stored in some
 // C++ object (e.g., a class, etc.).  BE CAREFUL.
