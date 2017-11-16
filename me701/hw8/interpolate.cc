@@ -1,3 +1,9 @@
+#include <cmath>
+#include <math.h>
+#include "interpolate.hh"
+
+// double interpolate(double x_new, double *x, double *y, int n, int order);
+
 double interpolate(double x_new, double *x, double *y, int n, int order)
 {
     int l=0;
@@ -12,15 +18,15 @@ double interpolate(double x_new, double *x, double *y, int n, int order)
     {
         if(x_new >= x[i])
         {
-            l = i
-            break
+            l = i;
+            break;
         }
     }
     
     // populate interpolation points
     for(j=l; j-l<order+1; j++)
     {
-        ind[j-l] = j-((order+1)/2)
+        ind[j-l] = j-((order+1)/2);
     }
     
     // shift interpolation points into existence if negative
@@ -28,7 +34,7 @@ double interpolate(double x_new, double *x, double *y, int n, int order)
     {
         for(i=0; i<=order; i++)
         {
-            ind[i] += 0 - ind[0]
+            ind[i] += 0 - ind[0];
         }
     }
     
@@ -37,7 +43,7 @@ double interpolate(double x_new, double *x, double *y, int n, int order)
     {
         for(i=0; i<=order; i++)
         {
-            ind[i] += (n - 1) - ind[order]
+            ind[i] += (n - 1) - ind[order];
         }
     }
     
@@ -48,12 +54,12 @@ double interpolate(double x_new, double *x, double *y, int n, int order)
         {
             if(j!=i)
             {
-                p *= ((x_new - x[ind[j]]) / (x[ind[i]] - x[ind[j]]))
+                p *= ((x_new - x[ind[j]]) / (x[ind[i]] - x[ind[j]]));
             }
         }
-        s += (p * y[ind[i]])
-        p = 1
+        s += (p * y[ind[i]]);
+        p = 1;
     }
-    return s
+    return s;
 }
 
