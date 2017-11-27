@@ -1,9 +1,9 @@
 #include <cmath>
 #include <math.h>
 
-double interpolate(double x_new, double *x, double *y, int n, int order);
+double interpolate(double x_new, double *x, int xx, double *y, int yy, int n, int order);
 
-double interpolate(double x_new, double *x, double *y, int n, int order)
+double interpolate(double x_new, double *x, int xx, double *y, int yy, int n, int order)
 {
     int l=0;
     int ind[order+1];

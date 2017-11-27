@@ -13,4 +13,4 @@ x_new = 5.1245
 y_new = interpolate(x_new, x, y, len(y), 1)
 
 plt.plot(x, y, 'ko')
-plt.plot(x_new, y_new, 'rx')
+# plt.plot(x_new, y_new, 'rx')
