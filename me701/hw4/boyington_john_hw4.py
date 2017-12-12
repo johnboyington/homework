@@ -45,7 +45,7 @@ tallyIndx = tallyLocator.finditer(mcnpOutput)
 indx = []
 for match in tallyIndx:
     indx.append(match.span()[1])
-
+print(indx)
 
 s = r'\d.\d\d\d\dE[+-]\d\d   \d.\d\d\d\d\dE[+-]\d\d \d.\d\d\d\d'
 dataPtrn = re.compile(s)
@@ -73,7 +73,7 @@ print(d == checkDict)
 ###############################################################################
 #                                PROBLEM 3
 ###############################################################################
-
+'''
 # hard code bonner sphere data
 sphDia = np.array([0.0, 2.0, 3.0, 5.0, 8.0, 10.0, 12.0])
 resData = np.array([141585, 102435, 76796, 38056, 13923, 8091, 4834])
@@ -247,7 +247,7 @@ plt.close()
 
 
 
-
+'''
 
 
 
