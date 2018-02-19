@@ -62,5 +62,7 @@ for i in range(50000):
     alg_2()
 timer2 = time() - timer2
 
+ratio = timer1 / timer2
 print('Total time for alg_1 is:  {}'.format(timer1))
 print('Total time for alg_2 is:  {}'.format(timer2))
+print('The compute time ratio is {}'.format(ratio))

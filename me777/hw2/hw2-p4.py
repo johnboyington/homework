@@ -13,7 +13,7 @@ x_0 = 1
 
 x_n = x_0
 i = 1
-while i < 10001:
+while i < 10002:
     x_n = pm(x_n, a, m)
     i += 1
 
