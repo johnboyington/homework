@@ -1,0 +1,11 @@
+TTL *Four Factors                                                                                                            
+TFU=900 TCO=300 TMO=300     *Statepoint parameters                                                                           
+FUE 1 10.0/4.0              *Fuel density/enrichment                                                                         
+PIN 1                                                                                                                        
+ 0.56061 0.56900 0.62600/                                                                                                    
+  'FUE'  'AIR'  'CAN'/                                                                                                       
+      1      1      1/                                                                                                       
+PWR 2     1.2598,,,,,,8                                                                                                      
+* PIC translated data                                                                                                        
+STA                        *Start execution                                                                                  
+END                         *End of input                                                                                    

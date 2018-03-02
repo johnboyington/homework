@@ -1,0 +1,78 @@
+*FILES USED IN RUN   * * * * * * * * * * * * * * * * * * * * * * * *  1  6
+ *INPUT FILE                    input_80.txt
+ *OUTPUT LIST FILE              ./input_80.txt.out
+ *CARD IMAGE FILE (SEG1)        ./input_80.txt.cax
+ *NEUTRON DATA LIBRARY          /share/apps/studsvik/lib/studsvik/casmo4e/e60200
+ *GAMMA DATA LIBRARY            /share/apps/studsvik/lib/studsvik/casmo4e/galb418
+ *EXECUTABLE                    /share/apps/studsvik/libexec/studsvik/casmo4e/casmo4e-u1.00.02/casmo4e.exe
+*CASMO INPUT ECHO  * * * * * * * * * * * * * * * * * * * * * * * * *  1  6
+ TTL *Four Factors
+ TFU=900 TCO=300 TMO=300     *Statepoint parameters
+ FUE 1 10.0/4.0              *Fuel density/enrichment
+ PIC 0.567575757576,0.576,0.633,0.710766/'FUEL','AIR','CAN','BOX'             *Pin cell radii
+ STA                        *Start execution
+ END                         *End of input
+INP * * * * * * * * * * * * * *  I N P U T  D A T A  * * * * * * * * * *
+*I TTL *Four Factors                                                                                                       
+*I TFU=900 TCO=300 TMO=300     *Statepoint parameters                                                                      
+*I FUE 1 10.0/4.0              *Fuel density/enrichment                                                                    
+*I PIN 1                                                                                                                   
+*I  0.56758 0.57600 0.63300/                                                                                               
+*I   'FUE'  'AIR'  'CAN'/                                                                                                  
+*I       1      1      1/                                                                                                  
+*I PWR 2     1.2598,,,,,,8                                                                                                 
+*I * PIC translated data                                                                                                   
+*I STA                        *Start execution                                                                             
+FTD    * * * * * * * * * * *  F I L E  T R A I L  D A T A  * * * * * *   3 14  1
+*EXE  CASMO-4E  1.00.02  2012/05/08  2018/02/26  16:23:42    SSP       P PATCH00
+*LIN  4002      40314  70
+   E6LIB, UPDATE D, VERSION=E6.02.00-040314                                        
+      CASLIB       4.02  04/03/14    04/03/12    13:45:59    WINDOWS-NT
+*LIG     4  85/10/21   18
+    GAMLIB, UPDATE A, 18 GROUPS                                                    
+      CASLIB       1.50  94/09/29    95/10/18    16:25:57    SUN-IPC   
+*S3C     3  2000/12/07
+*EXC /share/apps/studsvik/libexec/studsvik/casmo4e/casmo4e-u1.00.02/casmo4e.exe
+*IFD BASE C4E MXN HEX CLU PSC AZI FSS EXTRA PN DIA DIA
+TIT                                                                   1  4  4  1
+*          Four Factors                                                         
+ 0.000  0.0/ 0.0  900.0/ 900.0  300.0/ 300.0    0.0/   0.0                      
+ 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00  0.00  0.00  0.00           KRM
+     0                                                                      INST
+IDE                                                                      1  1  1
+*/180226/1623        
+HYD                                                                      0  5  1
+ 4.02137E+01 3.54487E+01 1.41795E+00 3.45634E-01 1.14274E+00 1.26670E+00
+ 9.96596E-01 1.00000E+00 1.00000E+00 1.00000E+00 3.28746E-01 0.00000E+00
+ 1.59178E+01 1.59178E+01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 1.30823E+00 0.00000E+00 0.00000E+00 0.00000E+00 1.30823E+00 0.00000E+00
+ 4.10246E+00 8.66945E-01 0.00000E+00 7.13720E-02 6.34901E+00 3.18889E-01
+ENR   (WT% HEAVY METAL)                                                  0  4  1
+     2     8     4                                                         235 
+ 4.000
+     2     8     4                                                         LOA 
+ 8.921
+SIM                                                                      0  1  1
+             4.00000E+00 0.00000E+00     0     0 0.00000E+00 0.00000E+00
+GEO                                                                      1 13  1
+ (2I4,8F8.3,1X,A3)                                                          1
+   2   8   1.260   2.520   0.000   0.000   0.000   0.000   0.000   0.000 PWR
+ (6F8.3,6(1X,A3),1X,A6)                                                     1
+   0.568   0.576   0.633                         FUE AIR CAN             PIN  1
+ (1X,24I3)                                                                  1
+   1
+ (I4,1X,A3,I4,F5.1,3(1X,A3),3F8.3,2F11.3)                                   1
+   1   1   4  1.0 UO2          10.000   4.000   0.000      0.000      0.000
+ (18(1X,A3)/18I4)                                                           4
+ SPA COO MOD AIR CAN BOX CRA CRS CRC AIC B4C HAF CSS BP1 BP2 BP3 BP4 CCT
+   7   0   0   0   7   7   0  18  18  22   0   6  18   3   4   7  18  10
+   1
+  11
+STP                                                                      0  2  1
+  300.0/ 300.0   0.99660/  0.99660
+  300.0/ 300.0   0.99660/  0.99660
+ERR                                                                      0  2  1
+        [FATAL ERROR] IN PRERXY
+ Pin radii intrudes into neighboring pincell.
+TER                                                                      1  1  0
+ *  CASMO-4E U S E R  A B O R T  *

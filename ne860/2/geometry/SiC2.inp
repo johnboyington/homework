@@ -1,0 +1,7 @@
+TTL *Four Factors
+TFU=900 TCO=300 TMO=300   		*Statepoint parameters
+FUE 1 10.0/3.825            		*Fuel density/enrichment
+PIC .4096,.4180,.4600,0.710766/'fuel','Air','CAN','BOX'            	*Pin cell radii
+CAN 7.25/14000=70.05, 6000=29.95
+STA                      		*Start execution
+END                       		*End of input
