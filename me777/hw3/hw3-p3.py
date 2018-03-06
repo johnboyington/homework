@@ -24,12 +24,15 @@ def sample_mean(f, N, ax, bx, ay, by):
         s += f(rhox, rhoy)
         s2 += (f(rhox, rhoy))**2
     val = s / N
-    err = ((s2 / N) - val**2) / N
+    err = (N/(N - 1))*((s2 / N) - (val / N)**2)
     return val, err
 
 
 def strat(N1, N2, N3, N4, area):
     quads = [0, 0, 0, 0]
+    N_tot = N1 + N2 + N3 + N4
+    Ns = [N1, N2, N3, N4]
+    print(Ns)
     # sample quad I
     quads[0] = sample_mean(F, N1, 0, 5, 0, 5)
     # sample quad II
@@ -40,31 +43,85 @@ def strat(N1, N2, N3, N4, area):
     quads[3] = sample_mean(F, N4, 0, 5, -5, 0)
     s = 0
     e = 0
-    for v, er in quads:
-        s += 0.25 * v * area
-        e += (0.25**2) * er * area
-    return s, e
+    for i, q in enumerate(quads):
+        pm = (Ns[i] / N_tot)
+        v, er = q
+        s += pm * v
+        e += (pm * er) / N_tot
+    return s * area, e * area
 
 
 def whole(N, area):
     s, e = sample_mean(F, N, -5, 5, -5, 5)
+    e = e / N
     return s * area, e * area
 
+###############################################################################
+#                             simple experiemnt
+###############################################################################
 
-a = 10 * 10
-s = strat(1000, 1000, 1000, 1000, a)
-w = whole(4000, a)
+if True:
+    a = 10 * 10
+    sm = []
+    st = []
 
-ntot = 50
-nc = 0
-for i in range(ntot):
-    s = strat(1000, 1000, 1000, 1000, a)
-    w = whole(4000, a)
-    if s[1] > w[1]:
-        nc += 1
+    n_values = np.logspace(3, 5, 10)
+    l = 0
 
-print(nc / ntot)
+    for n in n_values:
+        d1 = 0.6
+        d2 = d3 = d4 = (1 - d1) / 3
+        st.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
 
+        sm.append(whole(int(n), a)[l])
+
+    fig = plt.figure(0)
+    ax = fig.add_subplot(111)
+    ax.plot(n_values, st, label='Stratified Sampling')
+    ax.plot(n_values, sm, label='Sample Mean')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.legend()
+
+###############################################################################
+#                             main experiemnt
+###############################################################################
+if False:
+    a = 10 * 10
+    sm = []
+    st0 = []
+    st1 = []
+    st2 = []
+    st3 = []
+
+    n_values = np.logspace(2, 5, 30)
+    l = 1
+
+    for n in n_values:
+        d1, d2, d3, d4 = 0.25, 0.25, 0.25, 0.25
+        st0.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
+
+        d1, d2, d3, d4 = 0.4, 0.2, 0.2, 0.2
+        st1.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
+
+        d1, d2, d3, d4 = 0.55, 0.15, 0.15, 0.15
+        st2.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
+
+        d1, d2, d3, d4 = 0.7, 0.1, 0.1, 0.1
+        st3.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
+
+        sm.append(whole(int(n), a)[l])
+
+    fig = plt.figure(0)
+    ax = fig.add_subplot(111)
+    for s in [sm, st0, st1, st2, st3]:
+        ax.plot(n_values, s)
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+
+#############################################################################
+#                       plotting 3d
+#############################################################################
 plot = False
 if plot:
     x = np.linspace(-5, 5, 100)
