@@ -32,7 +32,6 @@ def strat(N1, N2, N3, N4, area):
     quads = [0, 0, 0, 0]
     N_tot = N1 + N2 + N3 + N4
     Ns = [N1, N2, N3, N4]
-    print(Ns)
     # sample quad I
     quads[0] = sample_mean(F, N1, 0, 5, 0, 5)
     # sample quad II
@@ -60,7 +59,7 @@ def whole(N, area):
 #                             simple experiemnt
 ###############################################################################
 
-if True:
+if False:
     a = 10 * 10
     sm = []
     st = []
@@ -86,7 +85,7 @@ if True:
 ###############################################################################
 #                             main experiemnt
 ###############################################################################
-if False:
+if True:
     a = 10 * 10
     sm = []
     st0 = []
@@ -104,31 +103,32 @@ if False:
         d1, d2, d3, d4 = 0.4, 0.2, 0.2, 0.2
         st1.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
 
-        d1, d2, d3, d4 = 0.55, 0.15, 0.15, 0.15
+        d1, d2, d3, d4 = 0.1, 0.3, 0.3, 0.3
         st2.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
 
-        d1, d2, d3, d4 = 0.7, 0.1, 0.1, 0.1
-        st3.append(strat(int(d1*n), int(d2*n), int(d3*n), int(d4*n), a)[l])
 
         sm.append(whole(int(n), a)[l])
 
     fig = plt.figure(0)
     ax = fig.add_subplot(111)
-    for s in [sm, st0, st1, st2, st3]:
+    for s in [sm, st0, st1, st2]:
         ax.plot(n_values, s)
     ax.set_xscale('log')
     ax.set_yscale('log')
+    ax.set_xlabel('N')
+    ax.set_ylabel('$\sigma^2$')
+    ax.legend(['Sample Mean', '$p_1 = 0.25$', '$p_1 = 0.15$', '$p_1 = 0.625$'])
 
 #############################################################################
 #                       plotting 3d
 #############################################################################
-plot = False
+plot = True
 if plot:
     x = np.linspace(-5, 5, 100)
     y = np.linspace(-5, 5, 100)
     # create x and y points for 3d plotting
     xx, yy = np.meshgrid(x, y)
-    fig = plt.figure(0)
+    fig = plt.figure(99)
     ax = fig.add_subplot(111, projection='3d')
     # make surface plot
     F_xy = np.zeros((len(xx), len(yy)))
