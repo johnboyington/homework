@@ -1,0 +1,2 @@
+Total Run Time: 1250.9927752017975
+Starting Gen Size: 32
