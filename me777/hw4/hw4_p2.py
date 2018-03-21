@@ -32,10 +32,10 @@ class Hw4_P2(object):
         self.sig1 = 1
         self.sig2 = 0.5
         self.sig12 = 0.25
-        self.n = int(2E5)
+        self.n = int(1E5)
         self.x1 = 4.8
         self.x_i = self.x1
-        self.y1 = 1.5
+        self.y1 = 1.2
         self.y_i = self.y1
         self.u_i = None
         self.I = None
@@ -104,4 +104,4 @@ class Hw4_P2(object):
 
 
 if __name__ == '__main__':
-    Hw4_P2()
+    Hw4_P2(True)
