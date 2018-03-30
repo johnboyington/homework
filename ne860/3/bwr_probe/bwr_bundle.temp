@@ -16,6 +16,6 @@ LPI
 1 1 1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 
 *FLAG*
-DEP 2/'DY'
+DEP -50.0
 STA      
 END

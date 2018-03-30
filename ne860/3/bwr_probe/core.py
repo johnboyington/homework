@@ -60,15 +60,27 @@ class Core(object):
     def extract(self):
         # extract data
         with open('cores/core{}.out'.format(self.ID), 'r') as f:
-            output = f.read().split('** C A S M O - 4E SUMMARY **')[1].split('DAYS')[1].split('RUN')[0].split('\n')[1:-3]
+            output = f.read().split('** C A S M O - 4E SUMMARY **')[1].split('WT %    WT %    WT %')[1].split('RUN')[0].split('\n')[1:-3]
         self.burnup = []
         self.pppf = []
         self.k_inf = []
         for line in output:
             line = line.split()
-            self.burnup.append(float(line[-10]))
-            self.pppf.append(float(line[-6]))
-            self.k_inf.append(float(line[-9]))
+            self.burnup.append(float(line[-8]))
+            self.pppf.append(float(line[-4]))
+            self.k_inf.append(float(line[-7]))
+
+        # truncate values
+        cut = len(self.burnup)
+        for i, k in enumerate(self.k_inf):
+            if k < 0.95:
+                cut = i + 1
+                break
+        self.burnup = self.burnup[:cut]
+        self.pppf = self.pppf[:cut]
+        print(self.k_inf)
+        self.k_inf = self.k_inf[:cut]
+        print(self.k_inf)
 
         # calculate fitness
         self.eol_burnup = self.burnup[-1]
