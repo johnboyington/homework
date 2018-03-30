@@ -9,8 +9,8 @@ class Operations(object):
         self.params = Parameters()
 
     def splice(self, child_ID, parent_1, parent_2):
-        assert isinstance(parent_1, Filter), 'splicing requires Filter objects'
-        assert isinstance(parent_2, Filter), 'splicing requires Filter objects'
+        assert isinstance(parent_1, Core), 'splicing requires Core objects'
+        assert isinstance(parent_2, Core), 'splicing requires Core objects'
         child_chrom = []
         for genome in range(len(parent_1.chromosome)):
             if rand() > 0.5:
@@ -21,7 +21,7 @@ class Operations(object):
 
     def mutate(self, individual):
         gene = randint(0, self.params.num_disc)
-        assert isinstance(individual, Filter), 'mutating requires Filter objects'
+        assert isinstance(individual, Core), 'mutating requires Core objects'
         new_gene = randint(0, self.params.num_mat - 1)
         chrom = individual.chromosome
         chrom[gene] = new_gene

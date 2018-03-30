@@ -5,7 +5,7 @@ import numpy as np
 from operations import ops
 # import matplotlib.pyplot as plt
 import copy
-d# comm = MPI.COMM_WORLD
+# comm = MPI.COMM_WORLD
 # rank = comm.Get_rank()
 # size = comm.Get_size()
 
