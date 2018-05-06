@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 def q(x):
-    return 10 - x
+    return 3
 
 
 def walk_on_lines(r, n, bounds, bound_temp, tol):
@@ -21,7 +21,8 @@ def walk_on_lines(r, n, bounds, bound_temp, tol):
                 line = [x - R, bounds[1]]
             x_old = x
             x = line[0] + rand()*(line[1] - line[0])
-            qs += q(x) * (x_old**2) / 2
+            dist = abs(x - x_old)
+            qs += q(dist) * (dist**2) / 2
             if x - bounds[0] < tol:
                 s += bound_temp[0] + qs
                 found = True
@@ -49,4 +50,4 @@ ax.plot(xs, t[1], color='green', linestyle='--', label='1000 histories')
 ax.set_xlabel('x')
 ax.set_ylabel('u(x)')
 ax.legend()
-plt.savefig('p5_2.png', dpi=300)
+plt.savefig('p5.png', dpi=300)

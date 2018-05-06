@@ -5,14 +5,36 @@ from scipy.stats import norm
 from numpy.random import rand
 import matplotlib.pyplot as plt
 
-# sandwich method
+from matplotlib import rc, rcParams
+from nebp_response_functions import response_matrix
+from experimental_data import unfiltered1
+from spectrum import Spectrum
+from nebp_spectrum import FluxNEBP
+from nebp_unfolded_data import unfolded_data
 
-R = np.array([[1, 2, 3, 2], [3, 2, 1, 1]], dtype=np.float64)
-f_i = np.array([1, 1, 1, 1], dtype=np.float64)
-N = np.array([2, 2.5], dtype=np.float64)
-sig = np.array([0.1, 0.1], dtype=np.float64)
+
+# nice plots
+rc('font', **{'family': 'serif'})
+rcParams['xtick.direction'] = 'out'
+rcParams['ytick.direction'] = 'out'
+rcParams['xtick.labelsize'] = 12
+rcParams['ytick.labelsize'] = 12
+rcParams['lines.linewidth'] = 1.85
+rcParams['axes.labelsize'] = 15
+rcParams.update({'figure.autolayout': True})
+
+nebp = FluxNEBP(250)
+
+R = response_matrix
+f_i = nebp.values
+N = unfiltered1.values
+sig = unfiltered1.error
 
 sol = iterate(f_i, N, sig, R)
+solution = Spectrum(nebp.edges, sol)
+
+from_gravel = unfolded_data['e1_ne_gr']
+
 
 def sample(responses, errors):
     l = len(responses)
@@ -28,13 +50,53 @@ def sample(responses, errors):
 y = np.zeros(len(f_i))
 y2 = np.zeros(len(f_i))
 
+
+###############################################################################
+#                                iterative comparison
+##############################################################################
+
 n = 10
+fig = plt.figure(2)
+ax = fig.add_subplot(111)
+
 for i in range(n):
     sol = iterate(f_i, sample(N, sig), sig, R)
+    sol_spec = Spectrum(nebp.edges, sol)
     y += (sol)/n
     y2 += (sol**2)/n
+    ax.plot(sol_spec.step_x, sol_spec.step_y)
 
-error = (1 / (n - 1)) * (y**2 - y2)
-plt.plot(y)
-plt.errorbar(range(4), y, error)
+ax.set_xscale('log')
+ax.set_yscale('log')
+ax.set_xlabel('Energy $MeV$')
+ax.set_ylabel('Flux $cm^{-2}s^{-1}MeV^{-1}$')
+ax.set_xlim(1E-9, 20)
+plt.legend()
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.legend(frameon=False)
+
+
+error = np.sqrt((n / (n - 1)) * (y2 - y**2))
+solution = Spectrum(nebp.edges, y, error)
+
+
+###############################################################################
+#                                final comparison
+###############################################################################
+fig = plt.figure(0)
+ax = fig.add_subplot(111)
+ax.plot(nebp.step_x, nebp.step_y, color='k', label='Default Spectrum', linewidth=0.7,)
+ax.plot(solution.step_x, solution.step_y, color='indigo', label='Unfolded Spectrum', linewidth=0.7,)
+ax.errorbar(solution.midpoints, solution.normalized_values, solution.error / solution.widths, linestyle='None', color='indigo', linewidth=0.7,)
+ax.set_xscale('log')
+ax.set_yscale('log')
+ax.set_xlabel('Energy $MeV$')
+ax.set_ylabel('Flux $cm^{-2}s^{-1}MeV^{-1}$')
+ax.set_xlim(1E-9, 20)
+plt.legend()
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.legend(frameon=False)
+plt.savefig('comparison.png', dpi=300)
     
