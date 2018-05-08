@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib as pyplot
 from sandii import iterate
 from scipy.stats import norm
+from scipy.optimize import curve_fit
 from numpy.random import rand
 import matplotlib.pyplot as plt
 from time import time
@@ -110,10 +111,58 @@ sandwich_error = np.sqrt(C_x.diagonal() * (len(f_i) - 1))
 #                           individual bin comparison
 ###############################################################################
 
-group = 20
+analytical_error = np.zeros(len(f_i))
+
+for g in range(len(f_i)):
+    group = g
+    group_mean = y_sum[group]
+    group_data = y[:, group] * n
+    
+    hist_data = np.histogram(group_data, bins=25)
+    hist = Spectrum(hist_data[1], hist_data[0])
+    
+    
+    def gauss(x, mu, sig, A):
+        return A * ((1 / np.sqrt(2 * np.pi * sig**2)) * np.exp(-(x - mu)**2 / (2 * sig**2)))
+    
+    c = curve_fit(gauss, hist.midpoints, hist.values, p0=[group_mean, group_mean, 100])[0]
+    analytical_error[g] = abs(c[1])
+    
+    if g == 15:
+        x_gauss = np.linspace(hist.stepu_x[0], hist.stepu_x[-1], 100)
+        y_gauss = gauss(x_gauss, c[0], c[1], c[2] / n)
+        
+        fig = plt.figure(4)
+        ax = fig.add_subplot(111)
+        ax.plot(hist.stepu_x, hist.stepu_y / n, 'k', markersize=0.1, label='Histogram Data')
+        ax.plot(x_gauss, y_gauss, 'indigo', label='Gaussean Fit')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.set_xlabel('Mean Value')
+        ax.set_ylabel('Frequency')
+        plt.savefig('bin_hist.png', dpi=300)
+
+
+
+
+
+###############################################################################
+#                           aux plots
+###############################################################################
+'''
+fig = plt.figure(2)
+ax = fig.add_subplot(111)
 plt.plot(y[:, group] * n, 'ko', markersize=0.3)
 plt.plot([0, n - 1], [y_sum[group], y_sum[group]], color='indigo')
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
 
+fig = plt.figure(3)
+ax = fig.add_subplot(111)
+ax.plot([1] * n, y[:, group] * n, 'ko', markersize=0.1)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+'''
 
 ###############################################################################
 #                                final comparison
@@ -138,3 +187,45 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 ax.legend(frameon=False)
 plt.savefig('comparison.png', dpi=300)
+
+
+###############################################################################
+#                            latex tabulation
+###############################################################################
+
+
+def latex_tabulate(sand, pop_error, analy):
+    s = '''\\begin{{table*}}[h]
+\\centering
+\\begin{{tabular}}{{ |c|c|c|c| }}
+ \\hline
+ Energy Group & Sandwich Method Error & Population Std. Dev. & Analytical Std. Dev. \\\\
+ \\hline
+{}
+ \\hline
+\\end{{tabular}}
+\\end{{table*}}'''
+
+    rows = ''
+    for i in range(len(sand)-1, 0, -1):
+        rows += '     {} & {:9.6f} & {:8.6f} & {:8.6f}  \\\\ \n'.format(len(sand) - i, float(sand[i]), pop_error[i], analy[i])
+    return s.format(rows)
+    
+table = latex_tabulate(sandwich_error.T, error, analytical_error)
+
+with open('table.txt', 'w+') as F:
+    F.write(table)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
