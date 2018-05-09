@@ -103,7 +103,8 @@ ax.legend(frameon=False)
 #                                sandwich comparison
 ###############################################################################
 N = np.matrix(N)
-C_y = (1 / (len(N.T) - 1)) * (N.T * N)
+sig = np.matrix(sig)
+C_y = (1 / (len(sig.T) - 1)) * (sig.T * sig)
 C_x = np.linalg.pinv(R) * C_y * np.linalg.pinv(R.T)
 sandwich_error = np.sqrt(C_x.diagonal() * (len(f_i) - 1))
 
@@ -188,6 +189,38 @@ ax.spines['right'].set_visible(False)
 ax.legend(frameon=False)
 plt.savefig('comparison.png', dpi=300)
 
+###############################################################################
+#                            L_2 norms tabulation
+###############################################################################
+
+L2_norm_error = np.sqrt(np.sum(error**2))
+L2_norm_analytical_error = np.sqrt(np.sum(analytical_error**2))
+sandwich_error = np.array(sandwich_error[0])
+L2_norm_sandwich_error = np.sqrt(np.sum(sandwich_error**2))
+
+
+###############################################################################
+#                            comparerror
+###############################################################################
+error_spec = Spectrum(nebp.edges, error)
+anal_spec = Spectrum(nebp.edges, analytical_error)
+sand_spec = Spectrum(nebp.edges, sandwich_error[0])
+
+fig = plt.figure(5)
+ax = fig.add_subplot(111)
+ax.plot(error_spec.step_x, error_spec.step_y, color='k', linestyle='-', label='Population Std. Dev.', linewidth=0.7,)
+ax.plot(anal_spec.step_x, anal_spec.step_y, color='indigo', linestyle='--', label='Analytical Std. Dev.', linewidth=0.7,)
+ax.plot(sand_spec.step_x, sand_spec.step_y, color='green', linestyle=':', label='Sandwich Std. Dev.', linewidth=0.7,)
+ax.set_xscale('log')
+ax.set_yscale('log')
+ax.set_xlabel('Energy $MeV$')
+ax.set_ylabel('Error $cm^{-2}s^{-1}MeV^{-1}$')
+ax.set_xlim(1E-9, 20)
+plt.legend()
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.legend(frameon=False)
+plt.savefig('error.png', dpi=300)
 
 ###############################################################################
 #                            latex tabulation
