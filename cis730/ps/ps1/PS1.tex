@@ -128,6 +128,53 @@ For task category (f) games: see OpenAI Gym – https://gym.openai.com (includin
 
 \textbf{Solution:}
 
+[Task 2]
+An tic-tac-toe playing agent could in theory have a lookup table for each move after observing the state of the world.
+This is a reflex behavior.
+In theory, it could always make a move that would lead to either a win or a draw without actually deliberating about a goal.
+
+HeartyTianSim, a goal-based agent developed by the Eagle's Wings team from Canada was used to win an AIBIRDS competition.
+The agent would simulate 120 initial launches and assess things like the number of enemies destroyed and structural damage or change.
+This goal-based approach seeks to maximize the score one would receive on this game, which involves deliberating about choice, not just reacting.
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Problem 3: (530/730) State space representation.} \\
+(Adapted from Section 3.1, Russell \& Norvig 3e, and Poole \& Mackworth, 2e.) Consider a delivery robot of the kind discussed in Poole and
+Mackworth 2e (see http://artint.info/html/ArtInt\_48.html for an example and excerpt).
+
+Specify a state space for the following two tasks:
+\begin{enumerate}
+\item 8-puzzle vs. N-queens. Read about the 8-puzzle in Section 3.2.1 of Russell and Norvig, 3 rd edition (p. 70-71).
+Discuss differences in combinatorial complexity of the state space and simplifying properties such as symmetry – which problem
+exhibits these properties and which do not?
+What are some challenges in checking state spaces using generate-and-test?
+(We will come back to this when we discuss constraint satisfaction problems, aka CSPs.)
+
+\item. Farmer, Fox, Goose and Grain.
+The FFGG problem, alternately known as the fox, goose, and bag of beans problem, is a river crossing puzzle usually stated as follows (https://en.wikipedia.org/wiki/Fox,\_goose\_and\_bag\_of\_beans\_puzzle ):
+
+A farmer comes to a river bank with a fox, a goose, and a sack of grain.
+He can cross over using a boat that holds himself and one of the three items at a time.
+If the fox is left on one bank with the goose, it will eat the goose.
+If the goose is left on one bank with the grain, it will eat the grain.
+Can the farmer get all three items and himself across without anything being eaten?
+
+Formulate the problem precisely as a state space.
+Turn in an illustration of the state space diagram, showing which states are the initial states and which are reachable from each other.
+Rather than just give the state space provided in the Wikipedia article, explain your derivation and the operations on this state space.
+
+Answer the following: How many distinct states (legal/reachable or not are there), if we define each object as being on one bank or the other?
+How many reachable states are there? How many different solutions starting from either side are there?
+\end{enumerate}
+
+\bigbreak
+
+\textbf{Solution:}
+
+i. 
 
 
 \newpage
