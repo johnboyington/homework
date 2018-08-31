@@ -16,6 +16,7 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{framed}
+\usepackage{enumitem}
 \newcounter{temp}
 \theoremstyle{definition}
 \newtheorem{Thm}{Theorem}
@@ -84,15 +85,83 @@ Solution by:  John Boyington \\
 \textbf{Problem 1: (530/730) Perception and rationality.} \\
 Continuing the class discussion from Lecture 1 (“Intelligent Agents” – slide 0 of Lecture 0, slide 4 of Lecture 1):
 Consider voice-operated home assistant or smart home appliance as the agent to discuss.
-What limitations ofthis agent’s sensors (instruments for collecting perceptual information) limit its view of the world?
-How does this impact its rationality? Give at least two concrete examples of theeffects of sensor error and limitations.
+What limitations of this agent’s sensors (instruments for collecting perceptual information) limit its view of the world?
+How does this impact its rationality? Give at least two concrete examples of the effects of sensor error and limitations.
 You may use measurement error and data processing error as effects, but specify which type you are writing about.
 \bigbreak
 
 \textbf{Solution:}
 
+1. When trying to listen to someone in another room, the audio sensor may not be able to pick up that person's voice and distinguish it from the noise inherent in the signal. Unable to hear the person, the agent may rationalize that it's not currently being spoken to and remain idle, which is not true.
+
+2. Depending on the quality of the microphone used to pick up an audio signal, a person speaking extremely close to the microphone or yelling at it might exceed the limitation of the microphone. This may cause the audio signal to be heavily distorted and be impossible for the agent to abstract particular words or phrases from the signal.
+
 \newpage
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Problem 2: (530/730) Types of agents.} \\
+Consider the five term project domains discussed in class:
+\begin{enumerate}[label=\alph*]
+\item) ontology or other description logic reasoning task [Task 3 in Lecture 0, Slide 26]
+\item) cybersecurity task [Task 4]
+\item) conversational agent or cognitive service-based question-answering (QA) agent [Task 5]
+\item) image processing (especially style transfer) or vision task [Task 6]
+\item) expert system or analogical reasoning task [Task 7]
+\item) AI for social good [Task 8]
+\item) dynamic robot path planning problem [Task 1]
+\item) reinforcement learning and/or deep learning task for game playing agent [Task 2]
+\end{enumerate}
+(The first two topics are the oldest and are due to be retired for at least a few years after this course; the third and fourth topic is in its second year and will be offered again next year, and the last four are new or newly relaunched topics.)
+
+Give an example of two agents for one of these domains to illustrate the distinction between
+a reflex agent with state and a goal-based or preference-based agent. Hint: take a look at AItopics.org and examples of test beds and agents such as:
+
+For task category (b): DARPA Cyber Grand Challenge – http://archive.darpa.mil/cybergrandchallenge/, https://github.com/CyberGrandChallenge/
+
+For task category (c): see the Alexa Prize – https://developer.amazon.com/alexaprize
+
+For task category (f) games: see OpenAI Gym – https://gym.openai.com (including DOTA2 and Atari games), VizDOOM, Roguelike games, AI Birds
+
+
+\bigbreak
+
+\textbf{Solution:}
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
